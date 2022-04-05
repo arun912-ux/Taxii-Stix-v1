@@ -2,8 +2,6 @@
 
 .gitignore
 
-=======
->>>>>>> 78c56110af9c00797c6abf6d5c3f5a49aef40371
 HELP.md
 target/
 !.mvn/wrapper/maven-wrapper.jar
