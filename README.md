@@ -1,8 +1,7 @@
 # Taxii-Stix-Web-v1
 
 ### Till now 
-1. Fetching the data from HailATaxii server from 2017 to 2018. Because there is so much data and taking time.
-
+1. Fetching the data from HailATaxii server from 2017 to 2018 on guest.Abuse.ch Collection. Because there is so much data and taking time.
 
 ------------------
 
@@ -20,7 +19,9 @@
 
 ### To Run
 1. Build the Project with Maven Build tool
-2. Run the war file on Tomcat Server. 
+2. War file is generated in "target/" directory. Run it
+   <p><code>java -jar "filename.war"</code> </p>
+####
 3. END POINT :
    - /json : to fetch json converted data
    - /xml : to fetch raw xml data

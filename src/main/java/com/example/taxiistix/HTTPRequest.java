@@ -47,7 +47,7 @@ public class HTTPRequest {
                 "    xmlns:taxii_11=\"http://taxii.mitre.org/messages/taxii_xml_binding-1.1\"\n" +
                 "    message_id=\"123456\"\n" +
                 "    collection_name=\"guest.Abuse_ch\">\n" +
-                "    <taxii_11:Exclusive_Begin_Timestamp>2018-05-20T15:00:00Z \n" +
+                "    <taxii_11:Exclusive_Begin_Timestamp>2017-05-20T15:00:00Z \n" +
                 "    </taxii_11:Exclusive_Begin_Timestamp>\n" +
                 "    <taxii_11:Inclusive_End_Timestamp>2018-05-25T15:18:00Z\n" +
                 "    </taxii_11:Inclusive_End_Timestamp>\n" +
