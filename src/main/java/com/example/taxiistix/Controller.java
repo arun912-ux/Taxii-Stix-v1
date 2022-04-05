@@ -25,10 +25,16 @@ public class Controller {
     @GetMapping(value = "json", produces = MediaType.APPLICATION_JSON_VALUE)
     @ResponseBody()
     public String json() throws IOException {
-        JSONObject data1 = (JSONObject) HTTPRequest.httpUri();
+        JSONObject data1 = (JSONObject) HTTPRequest.getJson();
         return data1.toString(4);
     }
 
+
+    @GetMapping(value = "xml", produces = MediaType.APPLICATION_XML_VALUE)
+    @ResponseBody()
+    public String xml() throws IOException {
+        return HTTPRequest.getXml();
+    }
 
 
 }

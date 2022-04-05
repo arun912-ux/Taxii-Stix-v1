@@ -13,14 +13,14 @@ import java.nio.charset.StandardCharsets;
 public class HTTPRequest {
 
 
-    static Object httpUri() throws IOException {
+    static String httpUri() throws IOException {
 
         // ! Discovery Service
 //        URL url = new URL("http://hailataxii.com/taxii-discovery-service");
         // ! Collection Information, POLL
         URL url = new URL("http://hailataxii.com/taxii-data");
 
-
+        // * Headers
         HttpURLConnection http = (HttpURLConnection)url.openConnection();
         http.setRequestMethod("POST");
         http.setDoOutput(true);
@@ -75,17 +75,22 @@ public class HTTPRequest {
         http.disconnect();
         stream.close();
 
-//        return sb.toString();
-//        return xmlToJson(sb.toString());
-        return XML.toJSONObject(sb.toString());
-
-//        return sb.toString();
-
+        return sb.toString();
 
     }
 
+    static String getXml() throws IOException {
+        return  httpUri();
+    }
 
-    static void savrToDB(String xmlString) throws IOException {
+    static JSONObject getJson() throws IOException {
+        String ret = httpUri();
+        return XML.toJSONObject(ret);
+    }
+
+
+
+    static void saveToDB(String xmlString) throws IOException {
 
         JSONObject xmlJSONObj = XML.toJSONObject(xmlString);
         String jsonString = xmlJSONObj.toString(4);
