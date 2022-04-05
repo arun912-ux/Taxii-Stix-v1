@@ -3,6 +3,8 @@
 ### Till now 
 1. Fetching the data from HailATaxii server from 2017 to 2018 on guest.Abuse.ch Collection. Because there is so much data and taking time.
 
+- from 2017/05 to 2018/05 in abuse.ch collection, there are 1138 packages.
+
 ------------------
 
 
