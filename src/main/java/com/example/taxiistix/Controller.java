@@ -4,8 +4,7 @@ package com.example.taxiistix;
 import org.json.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.*;
 
 import java.io.IOException;
 
@@ -25,7 +24,7 @@ public class Controller {
     @GetMapping(value = "json", produces = MediaType.APPLICATION_JSON_VALUE)
     @ResponseBody()
     public String json() throws IOException {
-        JSONObject data1 = (JSONObject) HTTPRequest.getJson();
+        JSONObject data1 = (JSONObject) HTTPRequest.getJson(null);
         return data1.toString(4);
     }
 
@@ -33,8 +32,19 @@ public class Controller {
     @GetMapping(value = "xml", produces = MediaType.APPLICATION_XML_VALUE)
     @ResponseBody()
     public String xml() throws IOException {
-        return HTTPRequest.getXml();
+        return HTTPRequest.getXml(null);
     }
+
+//    @PostMapping(value = "/pathto", produces = MediaType.APPLICATION_XML_VALUE)
+//    @ResponseBody()
+//    public String xml1(@ModelAttribute("date") Object date, @ModelAttribute("radio") Object radio){
+////        Object date = req.getAttribute("date");
+////        System.out.println(date + "  " + radio);
+//        if(radio.toString().equals("r2")){
+//
+//        }
+//        return date.toString() + "   " +  radio;
+//    }
 
 
 }

@@ -6,19 +6,23 @@ import org.springframework.stereotype.Component;
 
 import java.io.*;
 import java.net.HttpURLConnection;
+import java.net.MalformedURLException;
+import java.net.ProtocolException;
 import java.net.URL;
 import java.nio.charset.StandardCharsets;
 
 @Component
 public class HTTPRequest {
 
+    static URL url;
+    static HttpURLConnection http;
 
-    static String httpUri() throws IOException {
+    static String httpUri(String date) throws IOException {
 
         // ! Discovery Service
-//        URL url = new URL("http://hailataxii.com/taxii-discovery-service");
+//        url = new URL("http://hailataxii.com/taxii-discovery-service");
         // ! Collection Information, POLL
-        URL url = new URL("http://hailataxii.com/taxii-data");
+        url = new URL("http://hailataxii.com/taxii-data");
 
         // * Headers
         HttpURLConnection http = (HttpURLConnection)url.openConnection();
@@ -42,16 +46,20 @@ public class HTTPRequest {
 
 
         // ! POLL
+        if(date==null){
+            date = "2018-04-20";
+        }
+
         String data = "\n" +
                 "<taxii_11:Poll_Request \n" +
                 "    xmlns:taxii_11=\"http://taxii.mitre.org/messages/taxii_xml_binding-1.1\"\n" +
                 "    message_id=\"123456\"\n" +
                 "    collection_name=\"guest.Abuse_ch\">\n" +
-                "    <taxii_11:Exclusive_Begin_Timestamp>2017-05-20T15:00:00Z \n" +
+                "    <taxii_11:Exclusive_Begin_Timestamp>" + date + "T15:00:00Z \n" +
                 "    </taxii_11:Exclusive_Begin_Timestamp>\n" +
                 "    <taxii_11:Inclusive_End_Timestamp>2018-05-25T15:18:00Z\n" +
                 "    </taxii_11:Inclusive_End_Timestamp>\n" +
-                "    <taxii_11:Poll_Parameters allow_asynch=\"false\">\n" +
+                "    <taxii_11:Poll_Parameters allow_async=\"false\">\n" +
                 "        <taxii_11:Response_Type>FULL</taxii_11:Response_Type>\n" +
                 "    </taxii_11:Poll_Parameters>\n" +
                 "</taxii_11:Poll_Request>\n" +
@@ -79,15 +87,14 @@ public class HTTPRequest {
 
     }
 
-    static String getXml() throws IOException {
-        return  httpUri();
+    static String getXml(String date) throws IOException {
+        return  httpUri(date);
     }
 
-    static JSONObject getJson() throws IOException {
-        String ret = httpUri();
+    static JSONObject getJson(String date) throws IOException {
+        String ret = httpUri(date);
         return XML.toJSONObject(ret);
     }
-
 
 
     static void saveToDB(String xmlString) throws IOException {
