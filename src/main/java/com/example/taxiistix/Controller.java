@@ -7,6 +7,7 @@ import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.*;
 
 import java.io.IOException;
+import java.util.List;
 
 @org.springframework.stereotype.Controller
 public class Controller {
@@ -24,8 +25,9 @@ public class Controller {
     @GetMapping(value = "json", produces = MediaType.APPLICATION_JSON_VALUE)
     @ResponseBody()
     public String json() throws IOException {
-        JSONObject data1 = (JSONObject) HTTPRequest.getJson(null);
-        return data1.toString(4);
+//        JSONObject data1 = (JSONObject) HTTPRequest.getJson(null);
+//        return data1.toString(4);
+        return HTTPRequest.getJson(null);
     }
 
 
@@ -35,16 +37,7 @@ public class Controller {
         return HTTPRequest.getXml(null);
     }
 
-//    @PostMapping(value = "/pathto", produces = MediaType.APPLICATION_XML_VALUE)
-//    @ResponseBody()
-//    public String xml1(@ModelAttribute("date") Object date, @ModelAttribute("radio") Object radio){
-////        Object date = req.getAttribute("date");
-////        System.out.println(date + "  " + radio);
-//        if(radio.toString().equals("r2")){
-//
-//        }
-//        return date.toString() + "   " +  radio;
-//    }
+
 
 
 }

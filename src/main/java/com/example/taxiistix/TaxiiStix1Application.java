@@ -8,6 +8,12 @@ public class TaxiiStix1Application  {
 
 	public static void main(String[] args) {
 		SpringApplication.run(TaxiiStix1Application.class, args);
+		staticBlock();
+	}
+
+
+	static void staticBlock(){
+
 	}
 
 }
