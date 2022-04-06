@@ -1,7 +1,6 @@
 body{
     margin: 50px;
     padding: 50px;
-    /*background-color: chocolate;*/
     align-items: center;
     align-content: center;
     alignment: center;
@@ -10,14 +9,38 @@ body{
 }
 
 a{
-    background-color: chartreuse;
+    /*background-color: chartreuse;*/
     margin: 10px 150px;
-
+    text-decoration: unset;
+    /*color: #ff0000;*/
 
 }
+
+#submit{
+    font-size: 18px;
+    height: 40px;
+    width: 100px;
+}
+form{
+    padding: 20px;
+}
+
+#search{
+    font-size: 20px;
+}
 div {
-    text-align: center;
-    /*width: 200px;*/
     /*background-color: blue;*/
     text-align: center;
+    padding: 20px 1px;
+}
+
+#type{
+    height: 40px;
+    font-size: 15px;
+}
+
+#input{
+    width: 200px;
+    height: 35px;
+    font-size: 18px;
 }

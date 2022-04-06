@@ -5,26 +5,40 @@
     <meta charset="UTF-8">
     <title>Home Page</title>
     <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="../static/style.css">
 
 </head>
 
 <body>
 <!--    Hello World-->
+<br/>
 
     <div>
-        <a href="./json">JSON</a>
-        <a href="./xml">XML</a>
+        <a href="./ips">IP</a>
+        <a href="./domains">DOMAIN</a>
+        <a href="./urls">URL</a>
+    </div>
+<br/> <br/>
+
+
+    <div>
+        <form action="/form" method="POST" >
+
+<!--            <label for="type" id="search">Search : </label>-->
+
+            <select name="select" id="type">
+                <option value="ip">IP</option>
+                <option value="uri">URL</option>
+                <option value="domain">DOMAIN</option>
+            </select>
+
+            <input type="text" name="input" required id="input">
+            <input  type="submit" value="Submit" id="submit">
+
+        </form>
     </div>
 
-<!--    <div>-->
-<!--        <form action="/pathto" th:method="POST">-->
-<!--            <input type="date" name="date" > <br>-->
-<!--            <input type="radio" name="radio" id="r1" value="r1"> w/ date-->
-<!--            <input type="radio" name="radio" id="r2" value="r2"> w/o date-->
-<!--            <input type="submit" name="submit" value="Submit">-->
-<!--        </form>-->
 
-<!--    </div>-->
 
 </body>
 

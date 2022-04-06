@@ -14,12 +14,16 @@ import java.net.URL;
 import java.nio.charset.StandardCharsets;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.Objects;
 
 @Component
-public class HTTPRequest {
+public class ServiceHelper {
 
     static URL url;
     static HttpURLConnection http;
+    static DB mapdb = DBMaker.memoryDB().make();
+    static HTreeMap<String, Map<String, String>> hashmap = (HTreeMap<String, Map<String, String>>)
+            mapdb.hashMap("hashmap").createOrOpen();
 
     static String httpUri(String date) throws IOException {
 
@@ -51,7 +55,7 @@ public class HTTPRequest {
 
         // ! POLL
         if(date==null){
-            date = "2018-05-20";
+            date = "2016-05-20";
         }
 
         String data = "\n" +
@@ -78,38 +82,38 @@ public class HTTPRequest {
 
         System.out.println();
         System.out.println(http.getResponseCode() + " : " + http.getResponseMessage());
-        StringBuilder sb = new StringBuilder();
+        StringBuilder xmlString = new StringBuilder();
         String line;
         while((line = br.readLine()) != null){
-            sb.append(line);
+            xmlString.append(line);
         }
 
         http.disconnect();
         stream.close();
 
-        return sb.toString();
+        return xmlString.toString();
 
     }
 
-    static String getXml(String date) throws IOException {
-        return  httpUri(date);
-    }
 
 
-
-    static String getJson(String date) throws IOException {
+    static void getJson(String date) throws IOException {
 
         Map<String, String> ipMap = new HashMap<>();
         Map<String, String> uriMap = new HashMap<>();
+        Map<String, String> domainMap = new HashMap<>();
 
-
+        // ! getting raw XML data from source
         String ret = httpUri(date);
+        // ! converting into JSON
         String jsonString = XML.toJSONObject(ret).toString(4);
 
+        // ! extracting required data from JSON
         JSONObject jsonObject = new JSONObject(jsonString);
         JSONObject poll_Response = jsonObject.getJSONObject("taxii_11:Poll_Response");
         JSONArray contentBlock = poll_Response.getJSONArray("taxii_11:Content_Block");
 
+        // ! IP, DOMAIN, URI : saving them into respective Maps
         for(int i=0; i< contentBlock.length(); i++){
             try{
                 JSONObject onj = (JSONObject) contentBlock.get(i);
@@ -128,6 +132,9 @@ public class HTTPRequest {
                 if(cyboxTitle.contains("URI")){
                     uriMap.put(cyboxTitle.substring(5), observables.toString(4));
                 }
+                if(cyboxTitle.contains("Domain")){
+                    domainMap.put(cyboxTitle.substring(8), observables.toString(4));
+                }
 
             }catch (Exception e){
                 System.out.print("");
@@ -135,9 +142,11 @@ public class HTTPRequest {
 
         }
 
-        HTreeMap<String, Map<String, String>> savedDB = save(ipMap, uriMap);
+        // ! save in MapDB
+        save(ipMap, uriMap, domainMap);
+//        HTreeMap<String, Map<String, String>> savedDB =
 
-        return savedDB.toString();
+//        return savedDB;
 
 //        JSONObject jsonObject = new JSONObject(jsonString);
 //        JSONObject poll_Response = jsonObject.getJSONObject("taxii_11:Poll_Response");
@@ -167,24 +176,67 @@ public class HTTPRequest {
 
 
 
-    static HTreeMap<String, Map<String, String>> save(Map<String, String> ipMap, Map<String, String> uriMap){
-
-        DB mapdb = DBMaker.memoryDB().make();
-        HTreeMap<String, Map<String, String>> hashmap = (HTreeMap<String, Map<String, String>>)
-                mapdb.hashMap("hashmap").createOrOpen();
+    static void save(Map<String, String> ipMap, Map<String, String> uriMap, Map<String, String> domainMap){
 
 
         System.out.println(ipMap.size());
         System.out.println(uriMap.size());
+        System.out.println(domainMap.size());
 
+        // ! Saving
         hashmap.put("IP", ipMap);
         hashmap.put("URI", uriMap);
+        hashmap.put("DOMAIN", domainMap);
 
         System.out.println(hashmap.size());
 
-        return hashmap;
+//        return hashmap;
 
     }
 
 
+    public String getIps() {
+        System.out.println("Requested for IPs");
+        StringBuilder retIp = new StringBuilder();
+        Map<String, String> ips = hashmap.get("IP");
+        retIp.append("[\n");
+        for(Map.Entry<String, String> m : Objects.requireNonNull(ips).entrySet()){
+            retIp.append(m.getValue()).append(",\n\n");
+        }
+        String substring = retIp.substring(0, retIp.length() - 3);
+        return substring + "\n]";
+    }
+
+    public String getDomains() {
+        System.out.println("Requested for Domains");
+        StringBuilder retDomain = new StringBuilder();
+        retDomain.append("[\n");
+        Map<String, String> ips = hashmap.get("DOMAIN");
+        for(Map.Entry<String, String> m : Objects.requireNonNull(ips).entrySet()){
+            retDomain.append(m.getValue()).append(",\n\n");
+        }
+        String ret = retDomain.substring(0, retDomain.length() - 3);
+        return ret + "\n]";
+    }
+    public String getUrls() {
+        System.out.println("Requested for Urls");
+        StringBuilder retUri = new StringBuilder();
+        retUri.append("[\n");
+        Map<String, String> ips = hashmap.get("URI");
+        for(Map.Entry<String, String> m : Objects.requireNonNull(ips).entrySet()){
+            retUri.append(m.getValue()).append(",\n\n");
+        }
+        String ret = retUri.substring(0, retUri.length() - 3);
+        return ret + "\n]";
+    }
+
+    public String search(String type, String input) {
+
+        Map<String, String> getMap = hashmap.get(type.toUpperCase());
+        if(getMap.containsKey(input)){
+            return getMap.get(input);
+        }
+
+        return "Not Found";
+    }
 }

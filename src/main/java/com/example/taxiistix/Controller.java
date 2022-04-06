@@ -1,19 +1,15 @@
 package com.example.taxiistix;
 
 
-import org.json.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.*;
-
-import java.io.IOException;
-import java.util.List;
 
 @org.springframework.stereotype.Controller
 public class Controller {
 
     @Autowired
-    HTTPRequest conHelp;
+    ServiceHelper conHelp;
 
 
     @GetMapping("/")
@@ -22,22 +18,32 @@ public class Controller {
     }
 
 
-    @GetMapping(value = "json", produces = MediaType.APPLICATION_JSON_VALUE)
+    @GetMapping(value = "ips", produces = MediaType.APPLICATION_JSON_VALUE)
     @ResponseBody()
-    public String json() throws IOException {
-//        JSONObject data1 = (JSONObject) HTTPRequest.getJson(null);
-//        return data1.toString(4);
-        return HTTPRequest.getJson(null);
+    public String ips() {
+        return conHelp.getIps();
+    }
+
+    @GetMapping(value = "domains", produces = MediaType.APPLICATION_JSON_VALUE)
+    @ResponseBody()
+    public String domains() {
+        return conHelp.getDomains();
+    }
+
+    @GetMapping(value = "urls", produces = MediaType.APPLICATION_JSON_VALUE)
+    @ResponseBody()
+    public String urls() {
+        return conHelp.getUrls();
     }
 
 
-    @GetMapping(value = "xml", produces = MediaType.APPLICATION_XML_VALUE)
+    @PostMapping(value = "/form", produces = MediaType.APPLICATION_JSON_VALUE)
     @ResponseBody()
-    public String xml() throws IOException {
-        return HTTPRequest.getXml(null);
+    public String form(@ModelAttribute("select") Object type,
+                       @ModelAttribute("input") String input){
+        System.out.println(type + " : " + input);
+        return conHelp.search(type.toString(), input);
     }
-
-
 
 
 }
