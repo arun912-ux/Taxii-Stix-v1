@@ -9,11 +9,11 @@
 ------------------
 
 
-### TODO
+[comment]: <> (### TODO)
 
-- [x] " "
+[comment]: <> (- [x] " ")
 
---------------------
+[comment]: <> (--------------------)
 
 
 ### To Run
@@ -28,6 +28,12 @@
 
 
 --------------------
+##Homepage
 
-<img src="Homepage.png" alt="homepage.png" />
+- IP : to fetch IPs
+- DOMAIN : to fetch Domains
+- URL : to fetch URL
+- Search box : to search specific content
+
+<img src="homepage.png" alt="homepage.png" />
 
