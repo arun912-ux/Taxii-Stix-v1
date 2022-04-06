@@ -1,20 +1,17 @@
 # Taxii-Stix-Web-v1
 
 ### Till now 
-1. Fetching the data from HailATaxii server from 2017 to 2018 on guest.Abuse.ch Collection. Because there is so much data and taking time.
-
-- from 2017/05 to 2018/05 in abuse.ch collection, there are 1138 packages.
+1. Fetching the data from HailATaxii server. Logging the number of IP, Domain, URL count received from server.
+2. Organizing the data and storing them in MapDB.
+3. From the webpage, we can separately request for URL, DOMAIN, IP. These are processed from saved MapDB.
+4. To search for a specific IP, DOMAIN, URL. Use the search box.
 
 ------------------
 
 
 ### TODO
-1. There is so much data to fetch. Taking time. 
-2. Understand the Stix Format to extract required data.
-3. How to search specific Domain or IP from data.
-4. Store data in any of the database (MapDB.memory | Postgres).
 
-- After understanding the Stix format, implementing a Search feature in HTML page, print it's respective taxii data.
+- [x] " "
 
 --------------------
 
@@ -25,8 +22,12 @@
    <p><code>java -jar "filename.war"</code> </p>
 ####
 3. END POINT :
-   - /json : to fetch json converted data
-   - /xml : to fetch raw xml data
+   - /ips : to fetch ips
+   - /domains : to fetch domains
+   - /urls : to fetch urls
 
 
 --------------------
+
+<img src="Homepage.png" alt="homepage.png" width="200px" />
+
