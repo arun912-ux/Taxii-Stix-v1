@@ -81,6 +81,7 @@ public class ServiceHelper {
         BufferedReader br = new BufferedReader(new InputStreamReader(http.getInputStream()));
 
         System.out.println();
+        System.out.println("Connection Established ...");
         System.out.println(http.getResponseCode() + " : " + http.getResponseMessage());
         StringBuilder xmlString = new StringBuilder();
         String line;

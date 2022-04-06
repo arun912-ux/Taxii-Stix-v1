@@ -17,11 +17,11 @@
 
 
 ### To Run
-1. Build the Project with Maven Build tool
-2. War file is generated in "target/" directory. Run it
+1. Build the Project with Maven Build tool.
+2. War file is generated in <code>target/</code> directory. Run it
    <p><code>java -jar "filename.war"</code> </p>
-####
-3. END POINT :
+3. Goto <code>localhost:8080/</code> in a browser.
+4. End Points :
    - /ips : to fetch ips
    - /domains : to fetch domains
    - /urls : to fetch urls

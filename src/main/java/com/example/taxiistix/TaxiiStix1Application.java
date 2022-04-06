@@ -21,7 +21,10 @@ public class TaxiiStix1Application  {
 
 
 	static void staticBlock() throws IOException {
+		System.out.println("\n\n\nLoading data ...");
 		ServiceHelper.getJson(null);
+		System.out.println("data fetched ...!");
+		System.out.println("Goto :  http://localhost:8080/");
 	}
 
 }
