@@ -29,5 +29,5 @@
 
 --------------------
 
-<img src="Homepage.png" alt="homepage.png" height="892" />
+<img src="Homepage.png" alt="homepage.png" />
 
